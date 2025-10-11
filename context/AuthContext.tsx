@@ -41,13 +41,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           withCredentials: true,
         });
         setUser(res.data.user);
-        // Only redirect to dashboard if user is on root page and authenticated
-        if (pathname === "/") {
-          router.push("/dashboard");
-        }
+        // Don't redirect here - let individual pages handle their own redirects
       } catch {
         setUser(null);
-        // Redirect only if trying to access dashboard without login
+        // Only redirect if trying to access protected route without authentication
         if (pathname.startsWith("/dashboard")) {
           router.push("/login");
         }
