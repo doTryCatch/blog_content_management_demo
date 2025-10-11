@@ -1,4 +1,3 @@
-// config.js
 const BASE_URL = "https://backend-rest-api-jwt-auth-rolebased.onrender.com";
 // const BASE_URL = "http://localhost:4000";
 
