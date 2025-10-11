@@ -78,6 +78,9 @@ export function LoginForm() {
         <CardTitle className="text-balance">Welcome back</CardTitle>
         <CardDescription className="text-pretty">
           Sign in to continue to your account.
+          <h1>For Testing..</h1>
+          <p>User Email: rp207045@gmail.com as Admin</p>
+          <p>Password: roshan12 </p>
         </CardDescription>
       </CardHeader>
 
