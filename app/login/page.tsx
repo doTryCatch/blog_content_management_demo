@@ -1,7 +1,6 @@
 import LoginForm from "@/components/loginForm";
 import Image from "next/image";
 import LandingPageImage from "@/public/contentManagement.png";
-
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -22,7 +21,7 @@ export default function LoginPage() {
           <LoginForm />
           {/* Sign up option */}
           <div className="mt-4 text-sm text-muted-foreground">
-            {"Don't have an account? "}
+            Don&apos;t have an account?{" "}
             <Link href="/register" className="text-primary hover:underline">
               Sign up
             </Link>
@@ -41,8 +40,8 @@ export default function LoginPage() {
               Passionate to get hired and contribute
             </h2>
             <p className="text-muted-foreground text-pretty">
-              I'm eager to join your company, ship quality work, and grow fast —
-              this demo UI presents a blog content manager.
+              I&apos;m eager to join your company, ship quality work, and grow
+              fast — this demo UI presents a blog content manager.
             </p>
           </div>
           <Image

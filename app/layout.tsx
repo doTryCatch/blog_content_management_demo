@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google"; // Use real Google Fonts
 import "./globals.css";
-
+import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 // Configure fonts
 const inter = Inter({
   variable: "--font-inter",
@@ -28,7 +29,8 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetBrainsMono.variable} antialiased`}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
+        <Toaster position="top-right" /> {/* Toast container */}
       </body>
     </html>
   );

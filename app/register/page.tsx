@@ -20,7 +20,7 @@ export default function RegisterPage() {
           </div>
           <RegisterForm />
           <div className="mt-4 text-sm text-muted-foreground">
-            {"Already have an account? "}
+            Already have an account?{" "}
             <Link href="/login" className="text-primary hover:underline">
               Sign in
             </Link>
@@ -28,6 +28,7 @@ export default function RegisterPage() {
         </div>
       </section>
 
+      {/* Right: Illustration */}
       <section className="hidden md:flex items-center justify-center bg-secondary text-secondary-foreground">
         <div className="w-full h-full flex flex-col items-center justify-center p-8 gap-6">
           <div className="max-w-md text-center space-y-3">
@@ -38,8 +39,8 @@ export default function RegisterPage() {
               Passionate to get hired and contribute
             </h2>
             <p className="text-muted-foreground text-pretty">
-              I'm eager to join your company, ship quality work, and grow fast —
-              this demo UI presents a blog content manager.
+              I&apos;m eager to join your company, ship quality work, and grow
+              fast — this demo UI presents a blog content manager.
             </p>
           </div>
           <Image
