@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-
+import BASE_URL from "@/config";
 export default function CreateBlog() {
   const [title, setTitle] = React.useState<string>("");
   const [content, setContent] = React.useState<string>("");
@@ -32,7 +32,7 @@ export default function CreateBlog() {
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:4000/api/blog/create",
+        `${BASE_URL}/api/blog/create`,
         {
           title,
           content,
