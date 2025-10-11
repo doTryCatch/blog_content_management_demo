@@ -36,7 +36,7 @@ export function RegisterForm() {
       const role = "USER"; // default role
 
       const response = await axios.post<RegisterResponse>(
-        `${BASE_URL}/api/auth/register`,
+        `${BASE_URL}/auth/register`,
         { name, email, password, role },
         { withCredentials: true }
       );

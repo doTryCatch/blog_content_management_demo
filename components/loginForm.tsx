@@ -47,7 +47,7 @@ export function LoginForm() {
       const password = String(formData.get("password") || "");
 
       const res = await axios.post<LoginResponse>(
-        `${BASE_URL}/api/auth/login`,
+        `${BASE_URL}/auth/login`,
         { email, password },
         { withCredentials: true }
       );

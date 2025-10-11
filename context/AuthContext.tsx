@@ -11,6 +11,9 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import BASE_URL from "@/config";
 
+// Configure axios defaults for better cookie handling
+axios.defaults.withCredentials = true;
+
 interface User {
   id: string;
   email: string;
@@ -37,12 +40,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/auth/me`, {
+        const res = await axios.get(`${BASE_URL}/auth/me`, {
           withCredentials: true,
         });
         setUser(res.data.user);
         // Don't redirect here - let individual pages handle their own redirects
-      } catch {
+      } catch (error) {
+        console.log("Auth check failed:", error);
         setUser(null);
         // Only redirect if trying to access protected route without authentication
         if (pathname.startsWith("/dashboard")) {
@@ -58,7 +62,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = async () => {
     try {
       await axios.post(
-        `${BASE_URL}/api/auth/logout`,
+        `${BASE_URL}/auth/logout`,
         {},
         { withCredentials: true }
       );
