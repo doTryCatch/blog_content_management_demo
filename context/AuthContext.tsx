@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/auth/me`, {
+        const res = await axios.get(`${BASE_URL}/api/auth/me`, {
           withCredentials: true,
         });
         setUser(res.data.user);
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = async () => {
     try {
       await axios.post(
-        `${BASE_URL}/auth/logout`,
+        `${BASE_URL}/api/auth/logout`,
         {},
         { withCredentials: true }
       );
