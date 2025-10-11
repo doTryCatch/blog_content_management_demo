@@ -4,8 +4,9 @@ import * as React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import BASE_URL from "@/config";
+import apiClient from "@/lib/api-client";
 import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
@@ -46,11 +47,17 @@ export function LoginForm() {
       const email = String(formData.get("email") || "");
       const password = String(formData.get("password") || "");
 
-      const res = await axios.post<LoginResponse>(
+      console.log("Login request to:", `${BASE_URL}/api/auth/login`);
+      console.log("Cookies before login:", document.cookie);
+      
+      const res = await apiClient.post<LoginResponse>(
         `${BASE_URL}/api/auth/login`,
-        { email, password },
-        { withCredentials: true }
+        { email, password }
       );
+
+      console.log("Login response:", res.data);
+      console.log("Cookies after login:", document.cookie);
+      console.log("Response headers:", res.headers);
 
       setUser(res.data.user); // Update context immediately
       toast.success(res.data.message || "Successfully logged in!");

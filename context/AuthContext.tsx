@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import {
   createContext,
   useContext,
@@ -10,9 +9,7 @@ import {
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import BASE_URL from "@/config";
-
-// Configure axios defaults for better cookie handling
-axios.defaults.withCredentials = true;
+import apiClient from "@/lib/api-client";
 
 interface User {
   id: string;
@@ -40,13 +37,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/auth/me`, {
-          withCredentials: true,
-        });
+        // Debug: Check if cookies are available
+        console.log("Available cookies:", document.cookie);
+        console.log("BASE_URL:", BASE_URL);
+        console.log("Making request to:", `${BASE_URL}/api/auth/me`);
+        
+        const res = await apiClient.get(`${BASE_URL}/api/auth/me`);
+        console.log("Auth response:", res.data);
         setUser(res.data.user);
         // Don't redirect here - let individual pages handle their own redirects
       } catch (error) {
         console.log("Auth check failed:", error);
+        if (error && typeof error === 'object' && 'response' in error) {
+          const axiosError = error as any;
+          console.log("Error response:", axiosError.response?.data);
+          console.log("Error status:", axiosError.response?.status);
+        }
         setUser(null);
         // Only redirect if trying to access protected route without authentication
         if (pathname.startsWith("/dashboard")) {
@@ -61,11 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     try {
-      await axios.post(
-        `${BASE_URL}/api/auth/logout`,
-        {},
-        { withCredentials: true }
-      );
+      await apiClient.post(`${BASE_URL}/api/auth/logout`, {});
     } catch (err) {
       console.error("Logout failed", err);
     } finally {
