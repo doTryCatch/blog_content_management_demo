@@ -3,15 +3,19 @@ import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
-  console.log(token);
-
-  const PUBLIC_PATHS = ["/login", "/register"]; // routes that don't require login
+  
+  const PUBLIC_PATHS = ["/login", "/register", "/"]; // routes that don't require login
   const isPublic = PUBLIC_PATHS.some((path) =>
     req.nextUrl.pathname.startsWith(path)
   );
 
-  if (!isPublic && !token) {
-    // User not logged in & trying to access protected route
+  // Allow public paths and API routes
+  if (isPublic || req.nextUrl.pathname.startsWith("/api")) {
+    return NextResponse.next();
+  }
+
+  // If no token and trying to access protected route, redirect to login
+  if (!token) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 

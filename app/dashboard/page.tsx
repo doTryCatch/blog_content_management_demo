@@ -10,12 +10,13 @@ import { useAuth } from "@/context/AuthContext";
 type MenuOption = { label: string; value: "blogs" | "users" | "myblogs" };
 
 export default function DashboardPage() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [selected, setSelected] = useState<"blogs" | "users" | "myblogs">(
     "blogs"
   );
 
-  if (!user) return <p>Loading...</p>; // wait for auth state
+  if (loading) return <p>Loading...</p>; // wait for auth state
+  if (!user) return <p>Please log in to access the dashboard.</p>;
 
   const menuOptions: MenuOption[] =
     user.role === "ADMIN"

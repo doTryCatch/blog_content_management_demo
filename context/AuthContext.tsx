@@ -22,12 +22,14 @@ interface AuthContextType {
   user: User | null;
   setUser: (user: User) => void;
   logout: () => void;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -39,12 +41,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           withCredentials: true,
         });
         setUser(res.data.user);
+        // Only redirect to dashboard if user is on root page and authenticated
+        if (pathname === "/") {
+          router.push("/dashboard");
+        }
       } catch {
         setUser(null);
         // Redirect only if trying to access dashboard without login
         if (pathname.startsWith("/dashboard")) {
           router.push("/login");
         }
+      } finally {
+        setLoading(false);
       }
     };
     fetchUser();
@@ -66,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, logout }}>
+    <AuthContext.Provider value={{ user, setUser, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
