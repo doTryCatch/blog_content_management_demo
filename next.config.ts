@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["via.placeholder.com"], // add the external host here
   },
-  // Ensure proper routing in production
-  experimental: {
-    appDir: true,
-  },
 };
 
 export default nextConfig;
