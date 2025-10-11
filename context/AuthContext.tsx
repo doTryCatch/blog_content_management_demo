@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (user && pathname !== "/dashboard") {
           router.push("/dashboard");
         }
-      } catch (err) {
+      } catch {
         setUser(null);
         // Optionally redirect unauthenticated users
         if (pathname.startsWith("/dashboard")) {
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     await axios.post(
-      `${BASE_URL}:4000/api/auth/logout`,
+      `${BASE_URL}/api/auth/logout`,
       {},
       { withCredentials: true }
     );
