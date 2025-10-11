@@ -1,4 +1,5 @@
 "use client";
+
 import axios from "axios";
 import {
   createContext,
@@ -30,23 +31,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
 
+  // Fetch user on mount
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(`${BASE_URL}/api/auth/me`, {
           withCredentials: true,
         });
-
-        const user = res.data.user;
-        setUser(user);
-
-        // Only redirect if logged in and not already on dashboard
-        if (user && pathname !== "/dashboard") {
-          router.push("/dashboard");
-        }
+        setUser(res.data.user);
       } catch {
         setUser(null);
-        // Optionally redirect unauthenticated users
+        // Redirect only if trying to access dashboard without login
         if (pathname.startsWith("/dashboard")) {
           router.push("/login");
         }
@@ -56,13 +51,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [pathname, router]);
 
   const logout = async () => {
-    await axios.post(
-      `${BASE_URL}/api/auth/logout`,
-      {},
-      { withCredentials: true }
-    );
-    setUser(null);
-    router.push("/login");
+    try {
+      await axios.post(
+        `${BASE_URL}/api/auth/logout`,
+        {},
+        { withCredentials: true }
+      );
+    } catch (err) {
+      console.error("Logout failed", err);
+    } finally {
+      setUser(null);
+      router.push("/login");
+    }
   };
 
   return (

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import axios, { AxiosError } from "axios";
 import BASE_URL from "@/config";
@@ -19,11 +20,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const API = axios.create({
-  baseURL: BASE_URL,
-  withCredentials: true, // send HTTP-only cookies automatically
-});
-
 interface LoginResponse {
   message: string;
   user: {
@@ -36,6 +32,7 @@ interface LoginResponse {
 
 export function LoginForm() {
   const { setUser } = useAuth();
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
@@ -49,22 +46,16 @@ export function LoginForm() {
       const email = String(formData.get("email") || "");
       const password = String(formData.get("password") || "");
 
-      const res = await API.post<LoginResponse>("/api/auth/login", {
-        email,
-        password,
-      });
+      const res = await axios.post<LoginResponse>(
+        `${BASE_URL}/api/auth/login`,
+        { email, password },
+        { withCredentials: true }
+      );
 
-      const user = res.data.user;
-
-      setUser({
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-      });
-
+      setUser(res.data.user); // Update context immediately
       toast.success(res.data.message || "Successfully logged in!");
-      window.location.href = "/dashboard";
+
+      router.push("/dashboard"); // SPA navigation
     } catch (err) {
       const error = err as AxiosError<{
         message?: string;
