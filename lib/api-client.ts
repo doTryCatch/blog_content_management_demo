@@ -11,29 +11,6 @@ export const apiClient = axios.create({
   },
 });
 
-// Add request interceptor for debugging
-apiClient.interceptors.request.use(
-  (config) => {
-    console.log('Making request to:', config.url);
-    console.log('With credentials:', config.withCredentials);
-    return config;
-  },
-  (error) => {
-    console.error('Request error:', error);
-    return Promise.reject(error);
-  }
-);
-
-// Add response interceptor for debugging
-apiClient.interceptors.response.use(
-  (response) => {
-    console.log('Response received:', response.status, response.config.url);
-    return response;
-  },
-  (error) => {
-    console.error('Response error:', error.response?.status, error.config?.url);
-    return Promise.reject(error);
-  }
-);
+// Clean API client without debug logging
 
 export default apiClient;

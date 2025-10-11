@@ -7,7 +7,6 @@ import { useAuth } from "@/context/AuthContext";
 import { AxiosError } from "axios";
 import BASE_URL from "@/config";
 import apiClient from "@/lib/api-client";
-import { testCookieHandling, testCORS } from "@/lib/cookie-test";
 import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
@@ -48,23 +47,10 @@ export function LoginForm() {
       const email = String(formData.get("email") || "");
       const password = String(formData.get("password") || "");
 
-      console.log("Login request to:", `${BASE_URL}/api/auth/login`);
-      console.log("Cookies before login:", document.cookie);
-      
       const res = await apiClient.post<LoginResponse>(
         `${BASE_URL}/api/auth/login`,
         { email, password }
       );
-
-      console.log("Login response:", res.data);
-      console.log("Cookies after login:", document.cookie);
-      console.log("Response headers:", res.headers);
-      console.log("Set-Cookie header:", res.headers['set-cookie']);
-      
-      // Check if cookie was set
-      setTimeout(() => {
-        console.log("Cookies after 1 second:", document.cookie);
-      }, 1000);
 
       setUser(res.data.user); // Update context immediately
       toast.success(res.data.message || "Successfully logged in!");
@@ -127,26 +113,6 @@ export function LoginForm() {
           <Button type="submit" disabled={loading} className="w-full">
             {loading ? "Signing in…" : "Sign in"}
           </Button>
-          
-          {/* Debug buttons */}
-          <div className="mt-4 space-y-2">
-            <Button 
-              type="button" 
-              variant="outline" 
-              onClick={testCookieHandling}
-              className="w-full text-xs"
-            >
-              Test Cookie Handling
-            </Button>
-            <Button 
-              type="button" 
-              variant="outline" 
-              onClick={testCORS}
-              className="w-full text-xs"
-            >
-              Test CORS
-            </Button>
-          </div>
         </form>
       </CardContent>
 
