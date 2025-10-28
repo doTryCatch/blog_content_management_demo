@@ -1,7 +1,7 @@
 # Blog Content Management Demo
 
 A modern blog content management system built with Next.js 15, featuring role-based authentication, blog creation, and user management.
-
+The backend of this project is in [https://github.com/doTryCatch/Backend-REST-API-JWT-Auth-RoleBased] this repository.
 ## 🚀 Features
 
 - **Authentication System**: Login/Register with JWT token-based authentication
