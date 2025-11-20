@@ -11,7 +11,7 @@ A modern blog content management system built with Next.js 15, featuring role-ba
 - **Responsive Design**: Modern UI with Tailwind CSS and Radix UI components
 - **Production Ready**: Optimized for deployment with proper routing and error handling
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Frontend**: Next.js 15, React 19, TypeScript
 - **Styling**: Tailwind CSS, Radix UI components
