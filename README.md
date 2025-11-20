@@ -2,7 +2,7 @@
 
 A modern blog content management system built with Next.js 15, featuring role-based authentication, blog creation, and user management.
 
-## 🚀 Features
+##  Features
 
 - **Authentication System**: Login/Register with JWT token-based authentication
 - **Role-Based Access**: Admin and User roles with different permissions
@@ -21,7 +21,7 @@ A modern blog content management system built with Next.js 15, featuring role-ba
 - **Icons**: Lucide React
 - **Notifications**: React Hot Toast
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 ├── app/                    # Next.js App Router
@@ -38,7 +38,7 @@ A modern blog content management system built with Next.js 15, featuring role-ba
 └── config.ts           # Environment configuration
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -101,7 +101,7 @@ Your backend API must support:
 
 See `BACKEND_CORS_FIX.md` for detailed backend configuration.
 
-## 🚀 Deployment
+##  Deployment
 
 ### Build for Production
 
@@ -124,29 +124,23 @@ The app is optimized for deployment on any platform that supports Next.js:
 - Render
 - AWS Amplify
 
-## 🔐 Authentication Flow
+##  Authentication Flow
 
 1. **User visits `/`** → Redirects to login or dashboard based on auth status
 2. **User logs in** → JWT token stored in HTTP-only cookie
 3. **Protected routes** → Middleware checks authentication
 4. **Dashboard access** → Role-based content and permissions
 
-## 🎨 UI Components
 
-Built with modern design system:
-- **Radix UI** for accessible components
-- **Tailwind CSS** for styling
-- **Lucide React** for icons
-- **Responsive design** for all screen sizes
 
-## 📱 Pages
+##  Pages
 
 - **`/`** - Home page with auth-based redirect
 - **`/login`** - User login
 - **`/register`** - User registration  
 - **`/dashboard`** - Main dashboard (protected)
 
-## 🛡️ Security Features
+##  Security Features
 
 - **HTTP-only cookies** for JWT storage
 - **CORS protection** with proper configuration
@@ -154,24 +148,6 @@ Built with modern design system:
 - **Role-based access control**
 - **Secure API communication**
 
-## 🐛 Troubleshooting
 
-### Common Issues
 
-1. **401 Unauthorized**: Check backend CORS configuration
-2. **Cookies not saving**: Verify SameSite and Secure cookie settings
-3. **Routing issues**: Ensure proper middleware configuration
 
-See `COOKIE_DEBUG.md` and `BACKEND_CORS_FIX.md` for detailed troubleshooting.
-
-## 📄 License
-
-This project is created as a demo for internship assignment purposes.
-
-## 🤝 Contributing
-
-This is a demo project, but feel free to fork and modify for your own use.
-
----
-
-**Built with ❤️ using Next.js 15 and modern web technologies**
